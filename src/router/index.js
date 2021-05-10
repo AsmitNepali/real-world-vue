@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory  } from "vue-router";
 import EventList from "../views/EventList.vue";
 import EventCreate from "../views/EventCreate.vue";
-import User from "../views/User.vue";
+
 
 const routes = [
 
@@ -11,24 +11,19 @@ const routes = [
     component: EventList,
   },
   {
-    path: "/event",
+    path: "/event/:id",
     name: "event-show",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/EventShow.vue"),
+    props: true,
   },
   {
     path: "/event/create",
     name: "event-create",
     component: EventCreate
-  },
-  {
-    path: "/user/:username",
-    name: "user",
-    component: User,
-    props: true
   },
 ];
 

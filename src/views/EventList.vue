@@ -1,3 +1,3 @@
 <template>
-    <h1>Evet List Page</h1>
+    <h1>Evet List</h1>
 </template>
