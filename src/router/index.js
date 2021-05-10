@@ -1,9 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory  } from "vue-router";
 import EventList from "../views/EventList.vue";
 import EventCreate from "../views/EventCreate.vue";
 import User from "../views/User.vue";
 
 const routes = [
+
   {
     path: "/",
     name: "event-list",
@@ -26,12 +27,14 @@ const routes = [
   {
     path: "/user/:username",
     name: "user",
-    component: User
-  }
+    component: User,
+    props: true
+  },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  
+  history: createWebHistory(),
   routes,
 });
 
