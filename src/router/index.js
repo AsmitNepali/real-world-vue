@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import EventList from "../views/EventList.vue";
 import EventCreate from "../views/EventCreate.vue";
-// import EventShow from "../views/EventShow.vue";
+import User from "../views/User.vue";
 
 const routes = [
   {
@@ -22,6 +22,11 @@ const routes = [
     path: "/event/create",
     name: "event-create",
     component: EventCreate
+  },
+  {
+    path: "/user/:username",
+    name: "user",
+    component: User
   }
 ];
 
