@@ -3,6 +3,7 @@ import EventList from "../views/EventList.vue";
 import EventCreate from "../views/EventCreate.vue";
 
 
+
 const routes = [
 
   {
