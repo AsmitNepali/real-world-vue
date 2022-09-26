@@ -13,7 +13,8 @@ export default createStore({
       'food',
       'community'
     ],
-    events: []
+    events: [],
+    eventsTotal:0,
   },
   getters: {
     getEventById: state => id => {
@@ -27,6 +28,9 @@ export default createStore({
     },
     SET_EVENTS(state, events) {
       state.events  = events
+    },
+    SET_TOTAL_EVENTS(state,eventsTotal) {
+      state.eventsTotal = eventsTotal
     }
   },
   actions: {
@@ -38,6 +42,7 @@ export default createStore({
     fetchEvents({commit} ,{perPage, page}) {
       EventService.getEvents(perPage, page)
       .then(response => {
+        commit('SET_TOTAL_EVENTS', parseInt(response.headers['x-total-count']))
         commit('SET_EVENTS', response.data)
       })
       .catch(error => {
