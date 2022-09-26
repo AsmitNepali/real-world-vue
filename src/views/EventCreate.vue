@@ -1,26 +1,19 @@
 <template>
   <div>
-    <h1>Created an Event, {{user.name}}</h1>
-    <p>This event was created by {{user.id}}</p>
-    <p>This are {{cartLength}} categories.</p>
+    <h1>Created an Event, {{userName}}</h1>
+    <!-- <p>This event was created by {{user.id}}</p> -->
+    <!-- <p>This are {{cartLength}} categories.</p> -->
     <ul>
-      <li v-for="cat in categories" :key="cat">{{cat}}</li>
+      <!-- <li v-for="cat in categories" :key="cat">{{cat}}</li> -->
     </ul>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 
 export default {
   computed: {
-    // localComputed(){
-    //   return something
-    // },
-
-    cartLength(){
-      return this.$store.getters.cartLength
-    },
-    ...mapState(['user','categories'])
+    userName() { return this.$store.state.user.name}
   }
 }
 </script>
