@@ -15,6 +15,7 @@ export default createStore({
     ],
     events: [],
     eventsTotal:0,
+    event:{}
   },
   getters: {
     getEventById: state => id => {
@@ -29,6 +30,9 @@ export default createStore({
     SET_EVENTS(state, events) {
       state.events  = events
     },
+    SET_EVENT(state,event){
+      state.event = event
+    },
     SET_TOTAL_EVENTS(state,eventsTotal) {
       state.eventsTotal = eventsTotal
     }
@@ -39,6 +43,7 @@ export default createStore({
       commit('ADD_EVENT', event)
       })
     }, 
+
     fetchEvents({commit} ,{perPage, page}) {
       EventService.getEvents(perPage, page)
       .then(response => {
@@ -48,8 +53,18 @@ export default createStore({
       .catch(error => {
         console.log(error);
       })
+    },
+
+    fetchEvent({commit}, id) {
+      EventService.getEvent(id)
+      .then(response => {
+        commit('SET_EVENT', response.data)
+      })
+      .catch(error => {
+        console.log('There was an error.', error.response);
+      })
     }
-  },
+  }, 
   modules: {
   }
 })
