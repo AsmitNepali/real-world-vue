@@ -231,6 +231,26 @@
       "date": "",
       "time": "5:00",
       "attendees": []
+    },
+    {
+      "id": 8783159,
+      "user": {
+        "user": {
+          "id": "abc123",
+          "name": "Asmit"
+        }
+      },
+      "categorie": "",
+      "organizer": {
+        "id": "abc123",
+        "name": "Asmit"
+      },
+      "title": "Success!",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }

@@ -44,12 +44,9 @@
 </template>
 <script>
 import { mapState,mapGetters } from 'vuex';
-// import Datepicker from 'vuejs-datepicker';
 
 export default {
-  components:{
-    // Datepicker
-  },
+
   data(){
     const times = [];
     for(let i = 1; i <= 24; i++) {
@@ -68,9 +65,7 @@ export default {
           params:{id:this.event.id}
         })
         this.event = this.createFreshEventObject()
-      }).catch(() => {
-        console.log('There was a problem creating your event')
-      })
+      }).catch(() => {})
     },
     createFreshEventObject() {
       const user = this.$store.state.user.user
