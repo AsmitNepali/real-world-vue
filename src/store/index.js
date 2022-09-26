@@ -17,12 +17,14 @@ export default createStore({
     eventsTotal:0,
     event:{}
   },
+
   getters: {
     getEventById: state => id => {
-      return state.events.filter(event=>event.id === id)
+      return state.events.find(event => event.id === id)
     },
     
   },
+
   mutations: {
     ADD_EVENT (state,event){
       state.events.push(event)
@@ -37,6 +39,7 @@ export default createStore({
       state.eventsTotal = eventsTotal
     }
   },
+
   actions: {
     createEvent({commit}, event) {
       return EventService.postEvent(event).then(()=>{
@@ -55,7 +58,13 @@ export default createStore({
       })
     },
 
-    fetchEvent({commit}, id) {
+    fetchEvent({commit, getters}, id) {
+      var event = getters.getEventById(id)
+      console.log(event)
+      if(event) {
+        commit('SET_EVENT', event)
+      }
+      else {
       EventService.getEvent(id)
       .then(response => {
         commit('SET_EVENT', response.data)
@@ -63,6 +72,7 @@ export default createStore({
       .catch(error => {
         console.log('There was an error.', error.response);
       })
+    }
     }
   }, 
   modules: {
