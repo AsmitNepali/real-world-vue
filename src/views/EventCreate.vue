@@ -2,6 +2,7 @@
   <div>
     <h1>Created an Event, {{userName}}</h1>
     <p>This event was created by {{user.id}}</p>
+    <p>{{getEvent(1)}}</p>
     <p>This are {{cartLength}} categories.</p> -
     <ul>
       <li v-for="cat in categories" :key="cat">{{cat}}</li>
@@ -13,9 +14,9 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    // localComputed(){
-    //   return something
-    // }
+    getEvent(){
+      return this.$store.getters.getEventById
+    },
     cartLength(){
       return this.$store.getters.cartLength
     },
