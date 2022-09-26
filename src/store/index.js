@@ -1,9 +1,9 @@
 import EventService from '@/services/EventService'
 import { createStore } from 'vuex'
+import * as user from '@/store/modules/user'
 
 export default createStore({
   state: {
-    user:{id:'abc123', name:'Asmit Nepali'},
     categories:[
       'sustanability',
       'nature',
@@ -20,7 +20,7 @@ export default createStore({
 
   getters: {
     getEventById: state => id => {
-      return state.events.find(event => event.id === id)
+      return state.events.findg(event => event.id === id)
     },
     
   },
@@ -76,5 +76,6 @@ export default createStore({
     }
   }, 
   modules: {
+    user
   }
 })

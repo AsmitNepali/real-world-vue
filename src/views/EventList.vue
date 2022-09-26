@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1> Event Listing </h1>
+    <h1> Event for {{ user.user.name}} </h1>
     <EventCard v-for="event in events" :key="event.id" :event="event"/>
     <BaseIcon />
     <template v-if="page != 1">
@@ -36,7 +36,7 @@ export default {
     isLastPage() {
       return this.eventsTotal > this.page*3
     },
-    ...mapState(['events','eventsTotal'])
+    ...mapState(['user','events','eventsTotal'])
   }
 };
 </script>
