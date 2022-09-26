@@ -71,6 +71,25 @@
           "name": "Mary Gordon"
         }
       ]
+    },
+    {
+      "id": 7813486,
+      "user": {
+        "id": "abc123",
+        "name": "Asmit Nepali"
+      },
+      "categorie": "",
+      "organizer": {
+        "id": "abc123",
+        "name": "Asmit Nepali"
+      },
+      "title": "Planting Trees",
+      "description": "We're planting trees",
+      "location": "the forest",
+      "date": "2022-09-26",
+      "time": "15:00",
+      "attendees": [],
+      "category": "nature"
     }
   ]
 }
