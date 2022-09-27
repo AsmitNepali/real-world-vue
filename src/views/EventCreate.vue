@@ -43,6 +43,7 @@
   </div>
 </template>
 <script>
+import NProgress from 'nprogress';
 import { mapState,mapGetters } from 'vuex';
 
 export default {
@@ -59,13 +60,16 @@ export default {
   },
   methods: {
     createEvent() {
+      NProgress.start()
       this.$store.dispatch('event/createEvent', this.event).then(() => {
         this.$router.push({
           name: 'event-show',
           params:{id:this.event.id}
         })
         this.event = this.createFreshEventObject()
-      }).catch(() => {})
+      }).catch(() => {
+        NProgress.done()
+      })
     },
     createFreshEventObject() {
       const user = this.$store.state.user.user

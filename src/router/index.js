@@ -4,12 +4,14 @@ import EventShow from "../views/EventShow.vue";
 import EventCreate from "../views/EventCreate.vue";
 import NProgress from "nprogress";
 import store from "@/store";
+import NotFound from "../views/NotFound"
 
 const routes = [
   {
     path: '',
     name: "event-list",
-    component: EventList
+    component: EventList,
+    props: true
   },
   {
     path: "/event-create",
@@ -29,6 +31,15 @@ const routes = [
     }
   },
   {
+    path: '/404',
+    name: '404',
+    component: NotFound
+  },
+  {
+    path:'/:pathMatch(.*)*',
+    redirect: { name: '404'}
+  },
+  {
     // path: "/about-us",
     // name: "about",
     // alias: "/about",
@@ -36,7 +47,8 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     // component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue")
-  }
+  },
+
   // {
   //   path: "/about-us",
   //   redirect: "/about"
