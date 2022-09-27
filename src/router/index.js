@@ -5,6 +5,7 @@ import EventCreate from "../views/EventCreate.vue";
 import NProgress from "nprogress";
 import store from "@/store";
 import NotFound from "../views/NotFound"
+import NetworkIssue from "../views/NetworkIssue"
 
 const routes = [
   {
@@ -27,17 +28,31 @@ const routes = [
       store.dispatch('event/fetchEvent', routeTo.params.id).then(event => {
         routeTo.params.event = event
         next()
+      }).catch(error => {
+        if(error.response && error.response.status == 404) {
+        next({ name: '404', params:{ resource: 'event' } })
+        } else {
+          next({ name: 'network-issue' })
+        }
       })
     }
   },
   {
     path: '/404',
     name: '404',
-    component: NotFound
+    component: NotFound,
+    props: true
   },
+
+  {
+    path: '/network-issue',
+    name: 'network-issue',
+    component: NetworkIssue
+  },
+
   {
     path:'/:pathMatch(.*)*',
-    redirect: { name: '404'}
+    redirect: { name: '404', params: { reource: 'page'}}
   },
   {
     // path: "/about-us",
