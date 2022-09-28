@@ -9,7 +9,7 @@
 <script>
     // Here modelValue and update:modelValue is default props and emit events for v-model
     export default {
-        inheritAttrs:false,
+        inheritAttrs: false,
         props:{
             options:{
                 type: Array,

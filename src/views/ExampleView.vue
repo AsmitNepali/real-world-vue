@@ -1,12 +1,15 @@
 <template>
-    <div>
-        <input type="email" placeholder="What's your email" v-model="email" @blur="v$.email.$touch()">
-        <button type="submit">Submit</button>
+    <form @submit.prevent = "submit">
+        <input type="email" placeholder="What's your email" 
+        v-model="email" 
+        :class="{error: v$.email.$error}"
+        @blur="v$.email.$touch()">
+        <button :disabled="v$.$invalid" type="submit">Submit</button>
         <div v-if="v$.email.$error">
-            <p v-if="v$.email.email.$invalid">Please Enter Valid eamil.</p>
+            <p v-if="v$.email.email.$invalid" class="errorMessage">Please Enter Valid eamil.</p>
             <p v-if="v$.email.required.$invalid">Email is required.</p>
         </div>
-    </div>
+    </form>
 </template>
 <script>
     import { useVuelidate } from '@vuelidate/core'
@@ -16,7 +19,7 @@
         data() {
             return {
                 email: null,
-                name: null
+               
             }
         }, 
         validations() {
@@ -24,11 +27,15 @@
                 email:{
                     required,
                     email
-                },
-                name: {
-                    required
                 }
-
+            }
+        },
+        methods:{
+            submit(){
+                this.v$.$touch()
+                if(!this.v$.$invalid) {
+                    console.log("Form Submitted");
+                }
             }
         }
     }
