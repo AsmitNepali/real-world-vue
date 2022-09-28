@@ -2,26 +2,19 @@
   <div>
     <h1>Create an Event</h1>
     <form @submit.prevent="createEvent">
-      <label>Select a category</label>
-      <select v-model="event.category">
-        <option v-for="cat in categories" :key="cat">{{ cat }}</option>
-      </select>
+      <BaseSelect label="Select a category" :options="categories" v-model="event.category" class="field"/>
 
       <h3>Name & describe your event</h3>
       <div class="field">
-        <label>Title</label>
-        <input v-model="event.title" type="text" placeholder="Add an event title"/>
+        <BaseInput type="text" placeholder="Title" label="Title" v-model:value="event.title"/>
       </div>
-
       <div class="field">
-        <label>Description</label>
-        <input v-model="event.description" type="text" placeholder="Add a description"/>
+        <BaseInput type="text" placeholder="Description" label="Description" v-model:value="event.description"/>
       </div>
 
       <h3>Where is your event?</h3>
       <div class="field">
-        <label>Location</label>
-        <input v-model="event.location" type="text" placeholder="Add a location"/>
+        <BaseInput type="text" placeholder="Location" label="Location" v-model:value="event.location"/>
       </div>
 
       <h3>When is your event?</h3>
@@ -32,66 +25,70 @@
       </div>
 
       <div class="field">
-        <label>Select a time</label>
-        <select v-model="event.time">
-          <option v-for="time in times" :key="time">{{ time }}</option>
-        </select>
+        <BaseSelect label="Select a time" :options="times" v-model="event.time" class="field"/>
       </div>
 
-      <input type="submit" class="button -fill-gradient" value="Submit"/>
+      <!-- <input type="submit" class="button -fill-gradient" value="Submit"/> -->
+      <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
     </form>
   </div>
 </template>
 <script>
 import NProgress from 'nprogress';
-import { mapState,mapGetters } from 'vuex';
+import { mapState } from 'vuex';
+import BaseInput from '@/components/BaseInput.vue';
+import BaseSelect from '@/components/BaseSelect.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 export default {
-
-  data(){
-    const times = [];
-    for(let i = 1; i <= 24; i++) {
-      times.push(i + ':00')
-    } 
-    return {
-      times,
-      event: this.createFreshEventObject()
-    }
-  },
-  methods: {
-    createEvent() {
-      NProgress.start()
-      this.$store.dispatch('event/createEvent', this.event).then(() => {
-        this.$router.push({
-          name: 'event-show',
-          params:{id:this.event.id}
-        })
-        this.event = this.createFreshEventObject()
-      }).catch(() => {
-        NProgress.done()
-      })
+    data() {
+        const times = [];
+        for (let i = 1; i <= 24; i++) {
+            times.push(i + ":00");
+        }
+        return {
+            times,
+            event: this.createFreshEventObject()
+        };
     },
-    createFreshEventObject() {
-      const user = this.$store.state.user.user
-      const id = Math.floor(Math.random() * 10000000)
-      return {
-        id: id,
-        user: this.$store.state.user,
-        categorie: '',
-        organizer: user,
-        title: '',
-        description: '',
-        location: '',
-        date: '',
-        time: '',
-        attendees: []
-      }
-    }
-  },
-  computed: {
-    ...mapGetters(['getEventById']),
-    ...mapState(['categories'])
-  }
+    methods: {
+        createEvent() {
+            NProgress.start();
+            this.$store.dispatch("event/createEvent", this.event).then(() => {
+                this.$router.push({
+                    name: "event-show",
+                    params: { id: this.event.id }
+                });
+                this.event = this.createFreshEventObject();
+            }).catch(() => {
+                NProgress.done();
+            });
+        },
+        createFreshEventObject() {
+            const user = this.$store.state.user.user;
+            const id = Math.floor(Math.random() * 10000000);
+            return {
+                id: id,
+                user: this.$store.state.user,
+                category: "",
+                organizer: user,
+                title: "",
+                description: "",
+                location: "",
+                date: "",
+                time: "",
+                attendees: []
+            };
+        }
+    },
+    computed: {
+        ...mapState(["categories"])
+    },
+    components: {
+    BaseInput,
+    BaseSelect,
+    BaseButton
+}
 }
 </script>
 

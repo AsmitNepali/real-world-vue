@@ -6,12 +6,19 @@ import NProgress from "nprogress";
 import store from "@/store";
 import NotFound from "../views/NotFound"
 import NetworkIssue from "../views/NetworkIssue"
+import ExampleView from "../views/ExampleView.vue"
 
 const routes = [
   {
     path: '',
     name: "event-list",
     component: EventList,
+    props: true
+  },
+  {
+    path: '/example-view',
+    name: "exmaple",
+    component: ExampleView,
     props: true
   },
   {
