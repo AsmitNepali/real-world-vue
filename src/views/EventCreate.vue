@@ -9,7 +9,7 @@
       class="field"
       @blur="v$.event.category.$touch()"/>
       <template v-if="v$.event.category.$error">
-        <p v-if="!v$.event.category.required.$invliad">Category is required.</p>
+        <p v-if="!v$.event.category.required.$invliad" class="-text-error">Category is required.</p>
       </template>
     
 
@@ -23,17 +23,34 @@
         @blur="v$.event.title.$touch()"
        />
         <template v-if="v$.event.title.$error">
-          <p v-if="v$.event.title.required.$invalid">Title is required.</p>
+          <p v-if="v$.event.title.required.$invalid" class="-text-error">Title is required.</p>
         </template>  
 
       </div>
       <div class="field">
-        <BaseInput type="text" placeholder="Description" label="Description" v-model:value="event.description"/>
+        <BaseInput 
+        type="text" 
+        placeholder="Description" 
+        label="Description" 
+        v-model:value="event.description"
+        @blur="v$.event.description.$touch()"/>
+
+        <template v-if="v$.event.description.$error">
+          <p v-if="v$.event.description.required.$invalid" class="-text-error">Description is required.</p>
+        </template> 
       </div>
 
       <h3>Where is your event?</h3>
       <div class="field">
-        <BaseInput type="text" placeholder="Location" label="Location" v-model:value="event.location"/>
+        <BaseInput 
+        type="text" 
+        placeholder="Location" 
+        label="Location" 
+        v-model:value="event.location"
+        @blur="v$.event.location.$touch()"/>
+        <template v-if="v$.event.location.$error">
+          <p v-if="v$.event.location.required.$invalid" class="-text-error">Location is required.</p>
+        </template> 
       </div>
 
       <h3>When is your event?</h3>
@@ -44,7 +61,16 @@
       </div>
 
       <div class="field">
-        <BaseSelect label="Select a time" :options="times" v-model="event.time" class="field"/>
+        <BaseSelect 
+        label="Select a time" 
+        :options="times" v-model="event.time" 
+        class="field"
+        @blur="v$.event.time.$touch()"
+        />
+
+        <template v-if="v$.event.time.$error">
+        <p v-if="!v$.event.time.required.$invliad" class="-text-error">Time is required.</p>
+      </template>
       </div>
 
       <!-- <input type="submit" class="button -fill-gradient" value="Submit"/> -->
@@ -89,6 +115,8 @@ export default {
   },
   methods: {
       createEvent() {
+        this.v$.$touch()
+        if(!this.v$.$invalid) {
           NProgress.start();
           this.$store.dispatch("event/createEvent", this.event).then(() => {
               this.$router.push({
@@ -99,6 +127,8 @@ export default {
           }).catch(() => {
               NProgress.done();
           });
+        }
+          
       },
       createFreshEventObject() {
           const user = this.$store.state.user.user;
@@ -131,5 +161,8 @@ export default {
 <style scoped>
 .field {
   margin-bottom: 24px;
+}
+.-text-error {
+  color:red;
 }
 </style>
