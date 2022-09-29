@@ -9,3 +9,13 @@ import './index.css'
 const app = createApp(App);
 app.component("BaseIcon", BaseIcon);
 app.use(store).use(router).mount("#app");
+app.config.globalProperties.$filters = {
+    DateFilter(value) {
+        const date = new Date(value)
+        return date.toLocaleDateString(['en-us'], {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric'
+    })
+    }
+}

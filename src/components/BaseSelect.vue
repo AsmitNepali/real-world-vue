@@ -8,24 +8,13 @@
 </template>
 <script>
     // Here modelValue and update:modelValue is default props and emit events for v-model
+    import { formFieldMixin } from '@/mixin/formFieldMixin';
     export default {
-        inheritAttrs: false,
+        mixins:[formFieldMixin],
         props:{
             options:{
                 type: Array,
                 rewuired: true
-            },
-            label:{
-                type: String,
-                default: ''
-            },
-            modelValue:[String, Number]
-        },
-        emits:['update:modelValue'],
-        methods: {
-            updateValue(event){
-                console.log(event.target.value)
-                this.$emit('update:modelValue', event.target.value)
             }
         }
     }
